@@ -1,25 +1,35 @@
+// Write your code at relevant places in the code below:
+
 import React, { useState } from "react";
 import Card from "../UI/Card";
 import Button from "../UI/Button";
 import "./AddUser.css";
 
 const AddUser = () => {
-  const [age, setAge] = useState("");
-  const [username, setUsername] = useState("")
+  const [enteredUsername, setEnteredUsername] = useState("");
+  const [enteredAge, setEnteredAge] = useState("");
+
   const addUserHandler = (event) => {
     event.preventDefault();
-    console.log(username, age);
+    if (enteredUsername.trim() === "" ||
+      enteredAge.trim() === "" ||
+      +enteredAge.trim() <= 0) {
+      return;
+    }
+
+    console.log(enteredUsername, enteredAge);
+    setEnteredUsername("");
+    setEnteredAge("");
   };
 
-  function usernameChangeHandler(event) {
-    setUsername(event.target.value);
-    event.target.value = "";
-  }
+  const usernameChangeHandler = (event) => {
+    setEnteredUsername(event.target.value);
+  };
 
-  function ageChangeHandler(event) {
-    setAge(event.target.value);
-    event.target.value = "";
-  }
+  const ageChangeHandler = (event) => {
+    setEnteredAge(event.target.value);
+  };
+
   return (
     <Card className="input">
       <form onSubmit={addUserHandler}>
@@ -27,12 +37,14 @@ const AddUser = () => {
         <input
           id="username"
           type="text"
+          value={enteredUsername}
           onChange={usernameChangeHandler}
         />
         <label htmlFor="age">Age</label>
         <input
           id="age"
           type="number"
+          value={enteredAge}
           onChange={ageChangeHandler}
         />
         <Button type="submit">Add User</Button>
