@@ -6,9 +6,17 @@ import UsersList from "./components/Users/UsersList";
 
 function App() {
   const [users, setUsers] = useState([]);
+
+  const addUserHandler = (username, age) =>{
+    setUsers((prevState)=>{
+      return [
+        ...prevState,
+      {name:username, age:age, id: Math.random().toString()}
+    ]});
+  }
   return (
     <div>
-      <AddUser />
+      <AddUser onAddUser={addUserHandler}/>
       <UsersList users={users}/>
     </div>
   );
